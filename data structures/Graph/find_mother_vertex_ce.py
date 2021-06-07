@@ -25,8 +25,7 @@ from Stack import MyStack
 # class Graph => {int vertices, linkedList[] array}
 # class linkedList => {Node head_node}
 # class Node => {int data, Node next_element}
-
-
+#hello
 def find_mother_vertex(g):
     # Write - Your - Code
     '''
@@ -46,10 +45,20 @@ def find_mother_vertex(g):
     mother_vertex : int
         value of mother_vertex
     '''
-    pass
+    current_mother_vertex = None
+    current_total = 0
+    for i in range(g.vertices):
+        total_connected_vertices = dfs_traversal(g, i)
+        if total_connected_vertices > current_total:
+            current_total = total_connected_vertices
+            current_mother_vertex = i
+    if current_total == 0:
+        return -1
+    else:
+        return current_mother_vertex
 
 # Create helper functions here
-def dfs_traversal(g, source = 0):
+def dfs_traversal(g, source):
     '''
     Return the number of connected vertices
     for each node.
@@ -80,7 +89,7 @@ def dfs_traversal(g, source = 0):
     # has been visited.
     vertices_tracker = [False] * vertices_count
     # Create a stack to store the visited sources
-    s = MyStack
+    s = MyStack()
     # Push the current source on to the stack
     s.push(source)
     # Set the vertices_tracker to True at the 
@@ -107,12 +116,19 @@ def dfs_traversal(g, source = 0):
     return num_of_vertices_visited + 1
 
 if __name__ == '__main__':
+    '''   
     g = Graph(4)
     g.add_edge(3, 0)
     g.add_edge(3, 1)
     g.add_edge(0, 1)
     g.add_edge(1, 2)
     g.print_graph()
-    print(g.array[0].get_head())
-    for i in g.array:
-        print(i.print_list)
+    '''
+    g = Graph(5)
+    g.add_edge(1, 0)
+    g.add_edge(2, 1)
+    g.add_edge(2, 3)
+    # g.add_edge(1, 3)
+    g.add_edge(2, 4)
+    print(find_mother_vertex(g))
+
